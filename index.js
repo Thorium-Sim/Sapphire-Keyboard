@@ -5,7 +5,7 @@ const registerClient = require("./helpers/registerClient");
 const startApp = require("./app");
 
 // Override this with the specific name of the client you want to run.
-let clientId = "Generic Node Client";
+let clientId = "Quartz Keyboard";
 module.exports.clientId = clientId;
 
 console.log("Activating bonjour browser...");
