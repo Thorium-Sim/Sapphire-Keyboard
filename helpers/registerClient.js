@@ -23,50 +23,32 @@ mutation RemoveClient($id: ID!) {
     }
     process.on("SIGINT", deregister);
 
-
-
-
-
-
-
-    const QUERY = `
+    client.query({
+        query: `
 query Keyboard {
   keyboard {
     name
-    id
   }
 }
-`;
-    tempclient.query({
-            query: QUERY
-        })
-        .then(
-            ({
-                data: { simulators }
-            }) => {
-                console.log(simulators);
-                console.log(tempclient);
-                /*
-                const { ambiance } = simulators[0];
-                ambiance.forEach(a => {
-                    this.props.playSound({
-                        ...a,
-                        looping: true,
-                        ambiance: true
-                    });
-                });
-                */
-            }
-        );
+`
+    }).then(({ data }) => {
+        for (let x = 0; x < data.keyboard.length; x++) {
+            //console.log(data.keyboard[x].name);
+            availableCards.push(data.keyboard[x].name)
+        }
 
-
-    return client.query({
-            query: `
+        client.query({
+                query: `
 mutation RegisterClient($client: ID!, $cards: [String]) {
   clientConnect(client: $client, mobile: false, cards: $cards)
 }
 `,
-            variables: { client: client.clientId, cards: availableCards }
-        })
-        .then(() => client);
+                variables: { client: client.clientId, cards: availableCards }
+            })
+            .then(() => client);
+
+    });
+
+
+
 };
