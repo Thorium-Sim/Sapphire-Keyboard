@@ -3,14 +3,14 @@ const App = new EventEmitter();
 const getClient = require("../helpers/graphqlClient");
 const registerClient = require("../helpers/registerClient");
 
-module.exports = (address, port, clientId) => {
+module.exports = async (address, port, clientId) => {
   console.log("Starting app...");
 
   // Create the client singleton
   getClient(address, port, clientId);
 
   // Register this app with Thorium as a client
-  registerClient();
+  await registerClient();
 
   console.log("Registered Client");
 

@@ -1,5 +1,5 @@
 const getClient = require("./graphqlClient");
-const availableCards = ["Test Screen"];
+const availableCards = [];
 
 module.exports = function() {
     const client = getClient();
@@ -23,7 +23,7 @@ mutation RemoveClient($id: ID!) {
     }
     process.on("SIGINT", deregister);
 
-    client.query({
+    return client.query({
         query: `
 query Keyboard {
   keyboard {
@@ -36,19 +36,14 @@ query Keyboard {
             //console.log(data.keyboard[x].name);
             availableCards.push(data.keyboard[x].name)
         }
-
         client.query({
                 query: `
 mutation RegisterClient($client: ID!, $cards: [String]) {
-  clientConnect(client: $client, mobile: false, cards: $cards)
+  clientConnect(client: $client, mobile: true, cards: $cards)
 }
 `,
                 variables: { client: client.clientId, cards: availableCards }
             })
             .then(() => client);
-
     });
-
-
-
 };
