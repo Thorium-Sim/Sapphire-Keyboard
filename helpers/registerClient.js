@@ -22,11 +22,12 @@ mutation RemoveClient($id: ID!) {
             });
     }
     process.on("SIGINT", deregister);
-
+    console.log("Obtaining Keyboard Layouts");
     return client.query({
         query: `
 query Keyboard {
   keyboard {
+    id
     name
   }
 }
@@ -36,6 +37,7 @@ query Keyboard {
             //console.log(data.keyboard[x].name);
             availableCards.push(data.keyboard[x].name)
         }
+        console.log(data);
         client.query({
                 query: `
 mutation RegisterClient($client: ID!, $cards: [String]) {

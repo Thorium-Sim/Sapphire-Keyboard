@@ -44,7 +44,6 @@ class Client {
     graphQLClient
       .query({ query: QUERY, variables: { clientId } })
       .then(({ data: { clients: [clientObj] } }) => {
-        console.log(clientObj);
         this.flight = clientObj.flight;
         this.simulator = clientObj.simulator;
         this.station = clientObj.station;

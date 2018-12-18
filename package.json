@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Thorium-Sim/thorium-node-client#readme",
   "dependencies": {
     "bonjour": "^3.5.0",
-    "graphqurl": "^0.3.2"
+    "graphqurl": "^0.3.2",
+    "iohook": "^0.3.0"
   }
 }
