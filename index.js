@@ -1,3 +1,29 @@
+var gkm = require("gkm")
+
+gkm.events.on("key.*", function(data, b, c, d) {
+	console.log(this);
+	console.log(data);
+});
+
+process.exit = () => {};
+process.on("SIGINT", function() {
+	console.log("Caught Interrupt signal");
+});
+
+if (process.platform === "win32") {
+	var rl = require("readline").createInterface({
+		input: process.stdin,
+		output: processs.stdout
+	});
+
+	rl.on("SIGINT", function() {
+		//Do nothing
+	});
+}
+
+
+
+
 /*
 // Load up the Bonjour client
 const getThoriumAddress = require("./helpers/bonjour");
@@ -25,13 +51,14 @@ getThoriumAddress()
 */
 
 
-
+/*
 const ioHook = require('iohook');
 
 ioHook.on('keydown', event => {
     console.log(event); // { type: 'mousemove', x: 700, y: 400 }
     return "";
 });
+*/
 /*
 ioHook.on('keyup', event => {
     console.log(event); // { type: 'mousemove', x: 700, y: 400 }
@@ -65,7 +92,7 @@ ioHook.on('mousewheel', event => {
 */
 
 // Register and start hook
-ioHook.start(true);
+//ioHook.start(true);
 
 // Alternatively, pass true to start in DEBUG mode.
 //ioHook.start(true);
