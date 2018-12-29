@@ -33,8 +33,10 @@ var rl = readline.createInterface({
 });
 
 rl.on('line', function(line){
-//    let tempVar = JSON.parse(line);
-//    console.log(tempVar.scanCode);
+//    console.log(JSON.stringify(registerClient.availcds));
+    let tempVar = JSON.parse(line);
+    console.log(tempVar.scanCode);
+/*
 `
 mutation TriggerKeyAction(
           $simulatorId: ID!
@@ -50,4 +52,5 @@ mutation TriggerKeyAction(
           )
         }
 `
+*/
 })

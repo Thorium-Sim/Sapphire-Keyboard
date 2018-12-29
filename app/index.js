@@ -14,6 +14,10 @@ module.exports = async (address, port, clientId) => {
 
   console.log("Registered Client");
 
+
+  console.log(JSON.stringify(registerClient.test));
+
+
   // Grab the client object to instantiate it
   const client = require("./client");
 

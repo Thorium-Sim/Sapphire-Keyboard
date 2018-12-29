@@ -1,5 +1,5 @@
 const getClient = require("./graphqlClient");
-const availableCards = [];
+availableCards = [];
 
 module.exports = function() {
     const client = getClient();
@@ -22,6 +22,7 @@ mutation RemoveClient($id: ID!) {
             });
     }
     process.on("SIGINT", deregister);
+
     console.log("Obtaining Keyboard Layouts");
     return client.query({
         query: `
@@ -37,7 +38,7 @@ query Keyboard {
             //console.log(data.keyboard[x].name);
             availableCards.push(data.keyboard[x].name)
         }
-        console.log(data);
+//        console.log(data);
         client.query({
                 query: `
 mutation RegisterClient($client: ID!, $cards: [String]) {
@@ -49,3 +50,6 @@ mutation RegisterClient($client: ID!, $cards: [String]) {
             .then(() => client);
     });
 };
+
+module.exports.test = availableCards;
+
