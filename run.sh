@@ -1,6 +1,7 @@
 #!/bin/bash
 
+rm program.log
 echo "Found Devices:"
-#./find_keyboards.py>keyboards
 keyboards="$(./find_keyboards.py)"
-./capture_key.a $keyboards
+./capture_key.a $keyboards | tee | node ./index.js
+# > program.log

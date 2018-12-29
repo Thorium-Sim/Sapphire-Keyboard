@@ -28,16 +28,16 @@ int main(int argc,char* argv[])
 {
     int counter;
     if(argc==1) {
-        printf("\nNo Keyboards Detected");
+        printf("No Keyboards Detected");
+        fflush(stdout);
 	return 1;
     }
-    printf("Using: %s\n",argv[1]);
+//    printf("Using: %s\n",argv[1]);
 
 
 
 
 
-//    const char *dev = "/dev/input/by-id/usb-Logitech_USB_Receiver-if02-event-mouse";
     const char *dev = argv[1];
     struct input_event ev;
     ssize_t n;
@@ -45,6 +45,7 @@ int main(int argc,char* argv[])
     fd = open(dev, O_RDONLY);
     if (fd == -1) {
         fprintf(stderr, "Cannot open %s: %s.\n", dev, strerror(errno));
+        fflush(stdout);
         return EXIT_FAILURE;
     }
     ioctl( fd, EVIOCGRAB, 1 );
@@ -68,8 +69,6 @@ int main(int argc,char* argv[])
         if (ev.type == EV_KEY && ev.value >= 0 && ev.value <= 1) {
             int keyCode = ev.code;
 	    bool isPressed = (ev.value == 1);
-//	    bool isPressed = false;
-//		printf("%s", evval[ev.value]);
 
 	    if (keyCode == rShift || keyCode == lShift) {
 		if (isPressed) {
@@ -108,15 +107,16 @@ int main(int argc,char* argv[])
 		keyCode != lControl &&
 		keyCode != lAlt &&
 		keyCode != lMeta) {
-		    if (isPressed) {
-	                printf("{\n shift:%d\n control:%d\n option:%d\n meta:%d\n scanCode:%d\n}\n", shiftKey, cntrlKey, altKey, metaKey, (int)ev.code);
-		    }
+		if (isPressed) {
+	            printf("{\"shift\":%d, \"control\":%d, \"option\":%d, \"meta\":%d, \"scanCode\":%d}\n", shiftKey, cntrlKey, altKey, metaKey, (int)ev.code);
+		    fflush(stdout);
+		}
 	    }
 	}
-
     }
     fflush(stdout);
     fprintf(stderr, "%s.\n", strerror(errno));
+    fflush(stdout);
     return EXIT_FAILURE;
 }
 

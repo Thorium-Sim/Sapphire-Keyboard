@@ -26,6 +26,7 @@ module.exports = async (address, port, clientId) => {
     // Do something with the client when it changes.
     // For example, start or stop performing actions when a simulator is assigned or unassigned
   });
+  
 };
 
 module.exports.App = App;
