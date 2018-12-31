@@ -1,7 +1,9 @@
 const getClient = require("./graphqlClient");
 availableCards = [];
+cardData = {}
 
 module.exports = function() {
+    module.exports.cardData = cardData;
     const client = getClient();
     const tempclient = getClient();
 
@@ -36,7 +38,9 @@ query Keyboard {
     }).then(({ data }) => {
         for (let x = 0; x < data.keyboard.length; x++) {
             //console.log(data.keyboard[x].name);
-            availableCards.push(data.keyboard[x].name)
+            availableCards.push(data.keyboard[x].name);
+            cardData[data.keyboard[x].name]={};
+            cardData[data.keyboard[x].name]=data.keyboard[x].id
         }
 //        console.log(data);
         client.query({
@@ -50,6 +54,4 @@ mutation RegisterClient($client: ID!, $cards: [String]) {
             .then(() => client);
     });
 };
-
-module.exports.test = availableCards;
 
