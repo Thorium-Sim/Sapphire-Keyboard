@@ -6,10 +6,12 @@
 #put everything into startup scripts: https://www.dexterindustries.com/howto/run-a-program-on-your-raspberry-pi-at-startup/
 
 #make our other files executable
-chmod 755 run.sh
-chmod 755 find_keyboards.py
+chmod 755 ./run.sh
+cd ./Keyboard_Input
+chmod 755 ./find_keyboards.py
 
 #compile the c programming
 gcc capture_key.c -o "capture_key.a"
 
+cd ../
 echo "DONE!"

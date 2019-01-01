@@ -7,6 +7,20 @@
 #include <stdio.h>
 #include <sys/ioctl.h>
 #include <stdbool.h>
+#include <string.h>
+
+#define maxInKeymap 89
+
+const char *keymap [maxInKeymap] = {
+	"UNKNOWN"  , "ESC", "1"    , "2" , "3"     , "4"    , "5"     , "6"     , "7"      ,"8"       ,
+	"9"        , "0"  , "-"    , "=" , "DELETE", "TAB"  , "Q"     , "W"     , "E"      ,"R"       ,
+	"T"        , "Y"  , "U"    , "I" , "O"     , "P"    , "["     , "]"     , "return" ,"control" ,
+	"A"        , "S"  , "D"    , "F" , "G"     , "H"    , "J"     , "K"     , "L"      ,";"       ,
+	"'"        , "`"  , "shift", "\\", "Z"     , "X"    , "C"     , "V"     , "B"      ,"N"       ,
+	"M"        , ","  , "."    , "/" , "shift" , ""     , "option", "SPACE" , "caps"   ,"F1"      ,
+	"F2"       , "F3" , "F4"   , "F5", "F6"    , "F7"   , "F8"    , "F9"    , "F10"    ,""        ,
+	""         , ""   , ""     , ""  , ""      , ""     , ""      , ""      , ""       ,""        ,
+	""         , ""   , ""     , ""  , ""      , ""     , ""      , "F11"   , "F12"};
 
 static const char *const evval[3] = {
     "RELEASED",
@@ -107,9 +121,18 @@ int main(int argc,char* argv[])
 		keyCode != lControl &&
 		keyCode != lAlt &&
 		keyCode != lMeta) {
+
 		if (isPressed) {
-	            printf("{\"shift\":%d, \"control\":%d, \"option\":%d, \"meta\":%d, \"scanCode\":%d}\n", shiftKey, cntrlKey, altKey, metaKey, (int)ev.code);
+
+		    //const char *keymap[maxInKeymap]
+		    char* keyCode = "";
+		    if (ev.code >= maxInKeymap) {
+	                printf("{\"shift\":%d, \"control\":%d, \"option\":%d, \"command\":%d, \"scanCode\":\"%s\"}\n", shiftKey, cntrlKey, altKey, metaKey, keymap[0]);
+		    } else {
+	                printf("{\"shift\":%d, \"control\":%d, \"option\":%d, \"command\":%d, \"scanCode\":\"%s\"}\n", shiftKey, cntrlKey, altKey, metaKey, keymap[ev.code]);
+		    }
 		    fflush(stdout);
+
 		}
 	    }
 	}
