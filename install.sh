@@ -11,7 +11,14 @@ cd ./Keyboard_Input
 chmod 755 ./find_keyboards.py
 
 #compile the c programming
-gcc capture_key.c -o "capture_key.a"
+gcc capture_key.c -o "compiled_capture_key.a"
 
 cd ../
 echo "DONE!"
+
+#Force the audio output through the headphone jack
+amixer cset numid=3 1
+
+
+#To Test Speakers
+#speaker-test

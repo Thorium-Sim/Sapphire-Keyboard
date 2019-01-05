@@ -5,12 +5,13 @@ const registerClient = require("./helpers/registerClient");
 const startApp = require("./app");
 const readline = require("readline");
 
+const { keyboardInputId } = require("../config.json")
+
 var graphQLClient;
 
-// Override this with the specific name of the client you want to run.
-let clientId = "Generic Node Client";
-//let clientId = "Magellan FD Keyboard";
-module.exports.clientId = clientId;
+//clientName
+module.exports.clientId = keyboardInputId;
+const clientId = keyboardInputId;
 
 console.log("Activating bonjour browser...");
 getThoriumAddress()
