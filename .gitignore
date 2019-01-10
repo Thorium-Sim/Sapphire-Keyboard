@@ -6,4 +6,4 @@
 ./Sound_Player/package-lock.json
 ./Keyboard_Input/package-lock.json
 
-./Sound_Player/Sounds/*
+*.ogg

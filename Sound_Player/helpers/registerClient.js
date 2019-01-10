@@ -4,6 +4,7 @@ const availableCards = ["Sound"];
 module.exports = function() {
   const client = getClient();
   function deregister() {
+    console.log("STOP SERVICE");
     console.log("Shutting down server...");
     client
       .query({

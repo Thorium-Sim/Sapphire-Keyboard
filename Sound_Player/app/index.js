@@ -98,11 +98,8 @@ module.exports = (address, port, clientId) => {
 		});
 	}
 
-//        if (clientObj.station.name == "Sound" || clientObj.station.name == "SFX Only") {
         if (useSFX) {
-//        if (clientObj.station.name == "SFX Only") {
-console.log(clientObj.station.name);
-console.log("check");
+console.log("START SERVICE");
 	//Sounds Subscription
             graphQLClient
                 .subscribe({
@@ -137,6 +134,9 @@ console.log("check");
 
 //Play the sound here
 
+                            //console.log("MEH!");
+                            //console.log(data);
+                            sendPlaySound(data.soundSub.asset,data.soundSub.volume,data.soundSub.playbackRate,data.soundSub.looping);
                         },
                         error => {
                             console.log("Error: ", error);
@@ -156,7 +156,7 @@ console.log("check");
                             data
                         }) => {
                             console.log("CANCEL_SOUNDS");
-                            console.log(data);
+                            //console.log(data);
                         },
                         error => {
                             console.log("Error: ", error);
@@ -176,7 +176,7 @@ console.log("check");
                             data
                         }) => {
                             console.log("CANCEL_ALL_SOUNDS");
-                            console.log(data);
+                            //console.log(data);
                         },
                         error => {
                             console.log("Error: ", error);
@@ -196,7 +196,7 @@ console.log("check");
                             data
                         }) => {
                             console.log("STOP_LOOPING");
-                            console.log(data);
+                            //console.log(data);
                         },
                         error => {
                             console.log("Error: ", error);
@@ -209,3 +209,8 @@ console.log("check");
     });
 };
 module.exports.App = App;
+
+
+function sendPlaySound(filePath,vol,playRate,looping) {
+    console.log(filePath);
+}
