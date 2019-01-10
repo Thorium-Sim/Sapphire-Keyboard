@@ -1,4 +1,6 @@
 {
 	"keyboardInputId": "Magellan FD Keyboard",
-	"soundPlayerId": "Magellan Sound Player"
+	"soundPlayerId": "Magellan Sound Player",
+	"useAmbience": false,
+	"useSFX": true
 }

@@ -1,5 +1,5 @@
 const getClient = require("./graphqlClient");
-const availableCards = ["Sound","SFX Only","Ambience Only"];
+const availableCards = ["Sound"];
 
 module.exports = function() {
   const client = getClient();

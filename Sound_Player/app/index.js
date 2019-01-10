@@ -3,6 +3,11 @@ const App = new EventEmitter();
 const getClient = require("../helpers/graphqlClient");
 const registerClient = require("../helpers/registerClient");
 const gql = require("graphql-tag");
+const fs = require('fs')
+const fetch = require('node-fetch');
+
+const { useSFX } = require("../../config.json")
+const { useAmbience } = require("../../config.json")
 
 const SOUND_SUB = gql`
   subscription SoundSub($clientId: ID!) {
@@ -56,7 +61,7 @@ const AMBIENCE = gql`
 
 
 
-
+var currentStation = "";
 
 module.exports = (address, port, clientId) => {
     console.log("Starting app...");
@@ -73,22 +78,30 @@ module.exports = (address, port, clientId) => {
     const client = require("./client");
 
     App.on("clientChange", clientObj => {
-console.log(clientObj);
+	if (clientObj.station.name != currentStation) {
+	currentStation = clientObj.station.name;
 
         const graphQLClient = getClient();
 
-        if (clientObj.station.name == "Sound" || clientObj.station.name == "Ambience Only") {
+        if (useAmbience) {
 	//AMBIENCE Subscription
 	    let id = clientObj.simulator.id;
 	    graphQLClient
       		.query({ query: AMBIENCE, variables: { id } })
       		.then(({ data }) => {
 		    console.log("AMBIENCE");
-		    console.log(data);
+//		    console.log(data);
+//Repeat through all ambience tracks
+//check to see if we have them cached in the system
+//if they are not cached, then download them from the server, and cache them
+//Once we have them, then play them on loop
 		});
 	}
 
-        if (clientObj.station.name == "Sound" || clientObj.station.name == "SFX Only") {
+//        if (clientObj.station.name == "Sound" || clientObj.station.name == "SFX Only") {
+        if (useSFX) {
+//        if (clientObj.station.name == "SFX Only") {
+console.log(clientObj.station.name);
 console.log("check");
 	//Sounds Subscription
             graphQLClient
@@ -101,8 +114,29 @@ console.log("check");
                         ({
                             data
                         }) => {
-                            console.log("MEH!");
-                            console.log(data);
+			    let urlToGet = ("http://" + address + ":" + port + "/assets" + data.soundSub.asset);
+			    let localFile = ("./" + data.soundSub.asset);
+			    try {
+			      if (fs.existsSync(localFile)) {
+				//console.log("FILE EXISTS!");
+			      } else {
+				//console.log("PULL FILE!");
+				fetch(urlToGet)
+			 	    .then(res => res.buffer())
+			            .then(buffer => fs.writeFileSync(localFile,buffer,"binary"))
+			   	    .catch(err => console.error(err));
+
+			      }
+			    } catch(err) {
+			      console.error(err)
+			    }
+//data.soundSub.volume
+//data.soundSub.looping
+//data.soundSub.playbackRate
+//"../Cached_Sounds" + data.asset
+
+//Play the sound here
+
                         },
                         error => {
                             console.log("Error: ", error);
@@ -171,6 +205,7 @@ console.log("check");
                 })
                 .catch(err => console.error(err));
         }
+	}
     });
 };
 module.exports.App = App;

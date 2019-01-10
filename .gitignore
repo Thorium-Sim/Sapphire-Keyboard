@@ -1,5 +1,9 @@
-node_modules/*
+./node_modules/*
+./Sound_Player/node_modules/*
+./Keyboard_Input/node_modules/*
 
-package-lock.json
+./package-lock.json
+./Sound_Player/package-lock.json
+./Keyboard_Input/package-lock.json
 
-*.log
+./Sound_Player/Sounds/*
