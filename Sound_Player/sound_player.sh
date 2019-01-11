@@ -13,7 +13,8 @@ read varname
 
 while [ "$varname" != "STOP SERVICE" ];
 do
-#	echo $varname &
+	echo ".$varname" &
+	ogg123 ".$varname" &
 	read varname
 done
 
