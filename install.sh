@@ -5,17 +5,18 @@
 #Install Node Here: https://www.instructables.com/id/Install-Nodejs-and-Npm-on-Raspberry-Pi/  -AND-  https://nodejs.org/en/download/
 #put everything into startup scripts: https://www.dexterindustries.com/howto/run-a-program-on-your-raspberry-pi-at-startup/
 
+apt install sox
+
+apt install vorbis-tools
+
 #Make the run file executable
 chmod 755 ./run.sh
 
+#Make the run file executable
+chmod 755 ./test-speakers.sh
+
 #Force the audio output through the headphone jack
 amixer cset numid=3 1
-
-
-#To Test Speakers
-#speaker-test
-
-
 
 
 ### install set up Keyboard_Input ###
@@ -29,7 +30,7 @@ chmod 755 ./start.sh
 gcc capture_key.c -o "compiled_capture_key.a"
 
 #install node dependancies
-npm Install
+npm install
 
 cd ../
 
@@ -43,7 +44,7 @@ chmod 755 ./clear_sound_cache.sh
 chmod 755 ./start.sh
 
 #install node dependancies
-npm Install
+npm install
 
 cd ../
 

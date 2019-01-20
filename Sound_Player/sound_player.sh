@@ -14,7 +14,21 @@ read varname
 while [ "$varname" != "STOP SERVICE" ];
 do
 	echo ".$varname" &
-	ogg123 ".$varname" &
+	#High Latency, but can play multiple files at once, but not very many at the same time
+#	ogg123 ".$varname" & #High Latency, but can play multiple files at once
+
+	#Low Latency, but can't play many files at once
+#	play ".$varname" & #Low Latency, but can't play many files at once
+
+	#Low latency, and can play multiple files at once, but not very many at the same time
+	if [ -f ".$varname.wav" ]; then
+		echo "File .$varname.wav exists."
+	else
+		echo "File .$varname.wav does not exist."
+		sox ".$varname" ".$varname.wav"
+	fi
+	aplay ".$varname.wav" &
+
 	read varname
 done
 
