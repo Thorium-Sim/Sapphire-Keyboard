@@ -1,10 +1,16 @@
 #!/bin/bash
 
 ### General Setup ###
-#setup on off switch here: https://www.google.com/search?client=safari&rls=en&q=raspberry+pi+on+switch&ie=UTF-8&oe=UTF-8
-#Install Node Here: https://www.instructables.com/id/Install-Nodejs-and-Npm-on-Raspberry-Pi/  -AND-  https://nodejs.org/en/download/
-#put everything into startup scripts: https://www.dexterindustries.com/howto/run-a-program-on-your-raspberry-pi-at-startup/
+#Install Node
+cd ~
+curl https://nodejs.org/dist/v10.15.0/node-v10.15.0-linux-armv6l.tar.xz
+tar -xzf node-v8.9.0-linux-armv6l.tar.gz
+cd node-v6.11.1-linux-armv6l/
+sudo cp -R * /usr/local/
+node -v
+npm -v
 
+#install sound dependancies
 apt install sox
 
 apt install vorbis-tools
@@ -20,7 +26,7 @@ amixer cset numid=3 1
 
 
 ### install set up Keyboard_Input ###
-cd ./Keyboard_Input
+cd ~/quartz-hardware/Keyboard_Input
 
 #make our other files executable
 chmod 755 ./find_keyboards.py
@@ -32,12 +38,10 @@ gcc capture_key.c -o "compiled_capture_key.a"
 #install node dependancies
 npm install
 
-cd ../
-
 
 
 ### install set up Sound_Player ###
-cd ./Sound_Player
+cd ../Sound_Player
 
 #make our other files executable
 chmod 755 ./clear_sound_cache.sh
@@ -48,6 +52,14 @@ npm install
 
 cd ../
 
+#setup on off switch here: https://howchoo.com/g/mwnlytk3zmm/how-to-add-a-power-button-to-your-raspberry-pi
+#sudo cp ./listen-for-shutdown.py /usr/local/bin/
+sudo chmod +x /usr/local/bin/listen-for-shutdown.py
+
+echo "To set up the start up scripts, please add:"
+echo "~/quartz-hardware/listen-for-shutdown.py &"
+echo "~/quartz-hardware/run.sh &"
+echo "above 'echo 0' in"
+echo "sudo nano /etc/rc.local"
 
 echo "DONE!"
-
