@@ -5,10 +5,10 @@
 echo "Installing Node"
 cd ~
 echo "Downloading Node"
-curl https://nodejs.org/dist/v10.15.0/node-v10.15.0-linux-armv6l.tar.xz --output node-v8.9.0-linux-armv6l.tar.gz
+wget -v https://nodejs.org/dist/v10.15.0/node-v10.15.0-linux-armv6l.tar.xz
 echo "Unpacking Node"
-tar -xzf node-v8.9.0-linux-armv6l.tar.gz
-cd node-v6.11.1-linux-armv6l/
+tar -xf node-v10.15.0-linux-armv6l.tar.xz
+cd node-v10.15.0-linux-armv6l
 echo "Copying Node Files"
 sudo cp -R * /usr/local/
 echo "Testing Node"
@@ -17,10 +17,10 @@ npm -v
 
 #install sound dependancies
 echo "installing sox"
-apt install sox
+yes | sudo apt install sox
 
 echo "installing vorbis-tools"
-apt install vorbis-tools
+yes | sudo apt install vorbis-tools
 
 echo "making files executable"
 #Make the run file executable
@@ -63,8 +63,8 @@ cd ../
 
 echo "Setting up shutdown scripts"
 #setup on off switch here: https://howchoo.com/g/mwnlytk3zmm/how-to-add-a-power-button-to-your-raspberry-pi
-#sudo cp ./listen-for-shutdown.py /usr/local/bin/
-sudo chmod +x /usr/local/bin/listen-for-shutdown.py
+sudo mv ../quartz-hardware /usr/local/
+#sudo chmod +x /usr/local/bin/listen-for-shutdown.py
 
 echo "To set up the start up scripts, please add:"
 echo "~/quartz-hardware/listen-for-shutdown.py &"
