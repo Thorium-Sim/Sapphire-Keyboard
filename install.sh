@@ -14,6 +14,7 @@ sudo cp -R * /usr/local/
 echo "Testing Node"
 node -v
 npm -v
+rm node-v10.15.0-linux-armv6l.tar.xz
 
 #install sound dependancies
 echo "installing sox"
@@ -66,10 +67,8 @@ echo "Setting up shutdown scripts"
 sudo mv ../quartz-hardware /usr/local/
 #sudo chmod +x /usr/local/bin/listen-for-shutdown.py
 
-echo "To set up the start up scripts, please add:"
-echo "~/quartz-hardware/listen-for-shutdown.py &"
-echo "~/quartz-hardware/run.sh &"
-echo "above 'echo 0' in"
-echo "sudo nano /etc/rc.local"
+echo "To set up the start up scripts, please add the following lines to '/etc/rc.local', and then reboot:"
+echo "/usr/local/quartz-hardware/listen-for-shutdown.py &"
+echo "/usr/local/quartz-hardware/run.sh &"
 
 echo "DONE!"
