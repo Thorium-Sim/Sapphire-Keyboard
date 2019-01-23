@@ -3,7 +3,6 @@
 ### General Setup ###
 #Install Node
 echo "Installing Node"
-cd ~
 echo "Downloading Node"
 wget -v https://nodejs.org/dist/v10.15.0/node-v10.15.0-linux-armv6l.tar.xz
 echo "Unpacking Node"
@@ -64,7 +63,10 @@ cd ../
 
 echo "Setting up shutdown scripts"
 #setup on off switch here: https://howchoo.com/g/mwnlytk3zmm/how-to-add-a-power-button-to-your-raspberry-pi
-sudo mv ../quartz-hardware /usr/local/
+
+
+
+#sudo mv ../quartz-hardware /usr/local/
 #sudo chmod +x /usr/local/bin/listen-for-shutdown.py
 
 echo "To set up the start up scripts, please add the following lines to '/etc/rc.local', and then reboot:"
