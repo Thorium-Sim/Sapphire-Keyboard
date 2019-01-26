@@ -20,7 +20,8 @@ sudo cp -R * /usr/local/
 echo "Testing Node"
 node -v
 npm -v
-rm node-v10.15.0-linux-armv6l.tar.xz
+cd /usr/local/quartz-hardware/
+yes | sudo rm -r ./node-v10.15.0-linux-armv6l*
 
 #install sound dependancies
 echo "installing sox"
@@ -28,6 +29,8 @@ yes | sudo apt install sox
 
 echo "installing vorbis-tools"
 yes | sudo apt install vorbis-tools
+
+cd /usr/local/quartz-hardware/
 
 echo "making files executable"
 #Make the run file executable
@@ -42,7 +45,7 @@ amixer cset numid=3 1
 
 echo "setting up keyboard input"
 ### install set up Keyboard_Input ###
-cd ~/quartz-hardware/Keyboard_Input
+cd /usr/local/quartz-hardware/Keyboard_Input
 
 #make our other files executable
 chmod 755 ./find_keyboards.py
@@ -79,7 +82,7 @@ sudo chmod +x ./listen-for-shutdown.py
 sudo mv ./listen-for-shutdown.sh /etc/init.d/
 sudo chmod +x /etc/init.d/listen-for-shutdown.sh
 sudo update-rc.d listen-for-shutdown.sh defaults
-sudo /etc/init.d/listen-for-shutdown.sh start
+#sudo /etc/init.d/listen-for-shutdown.sh start
 
 
 
@@ -87,7 +90,7 @@ sudo chmod +x ./run.sh
 sudo mv ./start-sound-clients.sh /etc/init.d/
 sudo chmod +x /etc/init.d/start-sound-clients.sh
 sudo update-rc.d start-sound-clients.sh defaults
-sudo /etc/init.d/start-sound-clients.sh start
+#sudo /etc/init.d/start-sound-clients.sh start
 
 
 echo "DONE!"
