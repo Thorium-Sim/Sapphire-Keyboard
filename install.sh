@@ -1,5 +1,12 @@
 #!/bin/bash
 
+sudo mv ../quartz-hardware /usr/local/
+cd /usr/local/quartz-hardware/
+
+
+
+
+
 ### General Setup ###
 #Install Node
 echo "Installing Node"
@@ -65,12 +72,22 @@ echo "Setting up shutdown scripts"
 #setup on off switch here: https://howchoo.com/g/mwnlytk3zmm/how-to-add-a-power-button-to-your-raspberry-pi
 
 
+cd /usr/local/quartz-hardware/
 
-#sudo mv ../quartz-hardware /usr/local/
-#sudo chmod +x /usr/local/bin/listen-for-shutdown.py
 
-echo "To set up the start up scripts, please add the following lines to '/etc/rc.local', and then reboot:"
-echo "/usr/local/quartz-hardware/listen-for-shutdown.py &"
-echo "/usr/local/quartz-hardware/run.sh &"
+sudo chmod +x ./listen-for-shutdown.py
+sudo mv ./listen-for-shutdown.sh /etc/init.d/
+sudo chmod +x /etc/init.d/listen-for-shutdown.sh
+sudo update-rc.d listen-for-shutdown.sh defaults
+sudo /etc/init.d/listen-for-shutdown.sh start
+
+
+
+sudo chmod +x ./run.sh
+sudo mv ./start-sound-clients.sh /etc/init.d/
+sudo chmod +x /etc/init.d/start-sound-clients.sh
+sudo update-rc.d start-sound-clients.sh defaults
+sudo /etc/init.d/start-sound-clients.sh start
+
 
 echo "DONE!"
