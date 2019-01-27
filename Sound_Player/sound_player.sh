@@ -13,21 +13,21 @@ read varname
 
 while [ "$varname" != "STOP SERVICE" ];
 do
-	echo ".$varname" &
+	echo "/usr/local/quartz-hardware/Sound_Player$varname" &
 	#High Latency, but can play multiple files at once, but not very many at the same time
-#	ogg123 ".$varname" & #High Latency, but can play multiple files at once
+#	ogg123 "/usr/local/quartz-hardware/Sound_Player/Sounds$varname" & #High Latency, but can play multiple files at once
 
 	#Low Latency, but can't play many files at once
-#	play ".$varname" & #Low Latency, but can't play many files at once
+#	play "/usr/local/quartz-hardware/Sound_Player$varname" & #Low Latency, but can't play many files at once
 
 	#Low latency, and can play multiple files at once, but not very many at the same time
-	if [ -f ".$varname.wav" ]; then
-		echo "File .$varname.wav exists."
+	if [ -f "/usr/local/quartz-hardware/Sound_Player$varname.wav" ]; then
+		echo "File /usr/local/quartz-hardware/Sound_Player$varname.wav exists."
 	else
-		echo "File .$varname.wav does not exist."
-		sox ".$varname" ".$varname.wav"
+		echo "File /usr/local/quartz-hardware/Sound_Player$varname.wav does not exist."
+		sox "/usr/local/quartz-hardware/Sound_Player$varname" "/usr/local/quartz-hardware/Sound_Player$varname.wav"
 	fi
-	aplay ".$varname.wav" &
+	aplay "/usr/local/quartz-hardware/Sound_Player$varname.wav" &
 
 	read varname
 done

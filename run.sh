@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ./Sound_Player
+cd /usr/local/quartz-hardware/Sound_Player
 npm start | ./sound_player.sh &
 
 cd ../Keyboard_Input
