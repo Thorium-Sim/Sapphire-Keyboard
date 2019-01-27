@@ -61,6 +61,7 @@ npm install
 echo "setting up Sound Player"
 ### install set up Sound_Player ###
 cd ../Sound_Player
+mkdir ./Sounds/
 
 #make our other files executable
 chmod 755 ./clear_sound_cache.sh

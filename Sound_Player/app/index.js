@@ -112,15 +112,17 @@ console.log("START SERVICE");
                             data
                         }) => {
 			    let urlToGet = ("http://" + address + ":" + port + "/assets" + data.soundSub.asset);
-			    let localFile = ("./" + data.soundSub.asset);
+			    let localFile = ("/usr/local/quartz-hardware/Sound_Player" + data.soundSub.asset);
 			    try {
 			      if (fs.existsSync(localFile)) {
+	                        sendPlaySound(data.soundSub.asset,data.soundSub.volume,data.soundSub.playbackRate,data.soundSub.looping);
 				//console.log("FILE EXISTS!");
 			      } else {
 				//console.log("PULL FILE!");
 				fetch(urlToGet)
 			 	    .then(res => res.buffer())
 			            .then(buffer => fs.writeFileSync(localFile,buffer,"binary"))
+				    .then(meh => sendPlaySound(data.soundSub.asset,data.soundSub.volume,data.soundSub.playbackRate,data.soundSub.looping))
 			   	    .catch(err => console.error(err));
 
 			      }
