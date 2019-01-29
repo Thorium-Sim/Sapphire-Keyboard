@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rm ./Sounds/*
+yes | rm ./Sounds/*

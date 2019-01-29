@@ -94,4 +94,4 @@ sudo update-rc.d start-sound-clients.sh defaults
 #sudo /etc/init.d/start-sound-clients.sh start
 
 
-echo "DONE!"
+echo "DONE!  Please reboot to start the sound player"

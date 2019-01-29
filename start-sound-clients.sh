@@ -20,6 +20,14 @@ case "$1" in
     (sleep 30 && /usr/local/quartz-hardware/Keyboard_Input/compiled_capture_key.a $keyboards | tee | node /usr/local/quartz-hardware/Keyboard_Input/index.js) &
     #/usr/local/quartz-hardware/run.sh &
     ;;
+  startnow)
+    echo "Starting sound client (run.sh)"
+#    node /usr/local/quartz-hardware/Sound_Player/index.js | /usr/local/quartz-hardware/Sound_Player/sound_player.sh &
+    (node /usr/local/quartz-hardware/Sound_Player/index.js | /usr/local/quartz-hardware/Sound_Player/sound_player.sh) &
+    keyboards="$(/usr/local/quartz-hardware/Keyboard_Input/find_keyboards.py)"
+    (/usr/local/quartz-hardware/Keyboard_Input/compiled_capture_key.a $keyboards | tee | node /usr/local/quartz-hardware/Keyboard_Input/index.js) &
+    #/usr/local/quartz-hardware/run.sh &
+    ;;
   stop)
     echo "Stopping sound client (run.sh)"
     sudo pkill -2 -f /usr/local/quartz-hardware/Sound_Player/index.js

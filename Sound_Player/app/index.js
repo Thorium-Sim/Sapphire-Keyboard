@@ -5,6 +5,8 @@ const registerClient = require("../helpers/registerClient");
 const gql = require("graphql-tag");
 const fs = require('fs')
 const fetch = require('node-fetch');
+const wavFileInfo = require('wav-file-info');
+var shell = require('shelljs');
 
 const { useSFX } = require("../../config.json")
 const { useAmbience } = require("../../config.json")
@@ -60,7 +62,7 @@ const AMBIENCE = gql`
 
 
 
-
+var loopingSounds = {};
 var currentStation = "";
 
 module.exports = (address, port, clientId) => {
@@ -115,14 +117,18 @@ console.log("START SERVICE");
 			    let localFile = ("/usr/local/quartz-hardware/Sound_Player" + data.soundSub.asset);
 			    try {
 			      if (fs.existsSync(localFile)) {
-	                        sendPlaySound(data.soundSub.asset,data.soundSub.volume,data.soundSub.playbackRate,data.soundSub.looping);
+//console.log(data);
+				if (data.soundSub.looping) {
+				    loopingSounds[data.soundSub.id] = true;
+				}
+	                        sendPlaySound(data.soundSub.asset,data.soundSub.volume,data.soundSub.playbackRate,data.soundSub.looping,data.soundSub.id);
 				//console.log("FILE EXISTS!");
 			      } else {
 				//console.log("PULL FILE!");
 				fetch(urlToGet)
 			 	    .then(res => res.buffer())
 			            .then(buffer => fs.writeFileSync(localFile,buffer,"binary"))
-				    .then(meh => sendPlaySound(data.soundSub.asset,data.soundSub.volume,data.soundSub.playbackRate,data.soundSub.looping))
+				    .then(meh => sendPlaySound(data.soundSub.asset,data.soundSub.volume,data.soundSub.playbackRate,data.soundSub.looping,data.soundSub.id))
 			   	    .catch(err => console.error(err));
 
 			      }
@@ -133,12 +139,6 @@ console.log("START SERVICE");
 //data.soundSub.looping
 //data.soundSub.playbackRate
 //"../Cached_Sounds" + data.asset
-
-//Play the sound here
-
-                            //console.log("MEH!");
-                            //console.log(data);
-                            sendPlaySound(data.soundSub.asset,data.soundSub.volume,data.soundSub.playbackRate,data.soundSub.looping);
                         },
                         error => {
                             console.log("Error: ", error);
@@ -157,8 +157,9 @@ console.log("START SERVICE");
                         ({
                             data
                         }) => {
-                            console.log("CANCEL_SOUNDS");
-                            //console.log(data);
+			    delete loopingSounds[data.cancelSound];
+//                            console.log("CANCEL_SOUNDS");
+//                            console.log(data);
                         },
                         error => {
                             console.log("Error: ", error);
@@ -177,7 +178,11 @@ console.log("START SERVICE");
                         ({
                             data
                         }) => {
-                            console.log("CANCEL_ALL_SOUNDS");
+for (let key in loopingSounds) {
+	delete loopingSounds[key];
+}
+shell.exec('pkill aplay')
+//                            console.log("CANCEL_ALL_SOUNDS");
                             //console.log(data);
                         },
                         error => {
@@ -197,7 +202,10 @@ console.log("START SERVICE");
                         ({
                             data
                         }) => {
-                            console.log("STOP_LOOPING");
+for (let key in loopingSounds) {
+	delete loopingSounds[key];
+}
+//                            console.log("STOP_LOOPING");
                             //console.log(data);
                         },
                         error => {
@@ -213,6 +221,27 @@ console.log("START SERVICE");
 module.exports.App = App;
 
 
-function sendPlaySound(filePath,vol,playRate,looping) {
-    console.log(filePath);
+function sendPlaySound(filePath,vol,playRate,looping,soundId) {
+    if (looping == true && !loopingSounds[soundId]) {
+//        console.log(filePath);
+    } else {
+        console.log(filePath);
+    }
+
+    if (looping == true && loopingSounds[soundId]) {
+	let loopDuration = 0;
+        try {
+	  wavFileInfo.infoByFilename(("/usr/local/quartz-hardware/Sound_Player" + filePath + ".wav"), function(err, info){
+	    if (err) {
+	      loopDuration = 1000;
+	    } else {
+	      loopDuration = info.duration * 1000;
+	    }
+	    setTimeout(function() { sendPlaySound(filePath,vol,playRate,looping,soundId); }, loopDuration);
+	  });
+	} catch(err) {
+//	  console.error(err);
+//	  setTimeout(function() { sendPlaySound(filePath,vol,playRate,looping); }, 1000);
+	}
+    }
 }
