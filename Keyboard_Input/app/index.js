@@ -21,7 +21,7 @@ module.exports = async (address, port, clientId) => {
     module.exports.simID = clientObj.simulator.id;
     module.exports.kbID = registerClient.cardData[clientObj.station.name];
   });
-  
+
 };
 
 module.exports.App = App;

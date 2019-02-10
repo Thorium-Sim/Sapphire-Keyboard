@@ -2,5 +2,8 @@
 	"keyboardInputId": "Magellan FD Keyboard",
 	"soundPlayerId": "Magellan Sound Player",
 	"useAmbience": false,
-	"useSFX": true
+	"useSFX": true,
+	"useBonjour": false,
+	"serverAddress": "10.114.79.192",
+	"serverPort": 1337
 }

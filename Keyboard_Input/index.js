@@ -5,7 +5,10 @@ const registerClient = require("./helpers/registerClient");
 const startApp = require("./app");
 const readline = require("readline");
 
-const { keyboardInputId } = require("../config.json")
+const { keyboardInputId } = require("../config.json");
+const { useBonjour } = require("../config.json");
+const { serverAddress } = require("../config.json");
+const { serverPort } = require("../config.json");
 
 var graphQLClient;
 
@@ -13,20 +16,27 @@ var graphQLClient;
 module.exports.clientId = keyboardInputId;
 const clientId = keyboardInputId;
 
-console.log("Activating bonjour browser...");
-getThoriumAddress()
-    .then(({ address, port, name }) => {
-        graphQLClient = getClient(address, port, clientId);
+if (useBonjour) {
+	console.log("Activating bonjour browser...");
+	getThoriumAddress()
+	    .then(({ address, port, name }) => {
+	        graphQLClient = getClient(address, port, clientId);
+	        console.log("Found Thorium server:");
+	        console.log(`Address: ${address}:${port} ${name}`);
+
+	        startApp(address, port, clientId);
+	    })
+	    .catch(err => {
+	        console.error("An error occured");
+	        console.error(err);
+	    });
+} else {
+        graphQLClient = getClient(serverAddress, serverPort, clientId);
         console.log("Found Thorium server:");
-        console.log(`Address: ${address}:${port} ${name}`);
+        console.log(`Address: ${serverAddress}:${serverPort} Manual`);
 
-        startApp(address, port, clientId);
-    })
-    .catch(err => {
-        console.error("An error occured");
-        console.error(err);
-    });
-
+        startApp(serverAddress, serverPort, clientId);
+}
 
 var rl = readline.createInterface({
     input: process.stdin,
