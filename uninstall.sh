@@ -13,4 +13,4 @@ sudo update-rc.d -f start-sound-clients.sh remove
 
 amixer cset numid=3 0
 
-sudo rm -r /usr/local/quartz-hardware/
+sudo rm -r /usr/local/sapphire-keyboard/

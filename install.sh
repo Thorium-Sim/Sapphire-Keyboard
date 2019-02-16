@@ -94,4 +94,9 @@ sudo update-rc.d start-sound-clients.sh defaults
 #sudo /etc/init.d/start-sound-clients.sh start
 
 
+sudo update-rc.d -f listen-for-shutdown.sh default
+sudo update-rc.d -f start-sound-clients.sh default
+
+
+
 echo "DONE!  Please reboot to start the sound player"

@@ -14,11 +14,11 @@
 case "$1" in
   start)
     echo "Starting listen-for-shutdown.py"
-    /usr/local/quartz-hardware/listen-for-shutdown.py &
+    /usr/local/sapphire-keyboard/listen-for-shutdown.py &
     ;;
   stop)
     echo "Stopping listen-for-shutdown.py"
-    pkill -f /usr/local/quartz-hardware/listen-for-shutdown.py
+    pkill -f /usr/local/sapphire-keyboard/listen-for-shutdown.py
     ;;
   *)
     echo "Usage: /etc/init.d/listen-for-shutdown.sh {start|stop}"
