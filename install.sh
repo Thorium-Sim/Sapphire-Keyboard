@@ -1,7 +1,7 @@
 #!/bin/bash
 
-sudo mv ../quartz-hardware /usr/local/
-cd /usr/local/quartz-hardware/
+sudo mv ../sapphire-keyboard /usr/local/
+cd /usr/local/sapphire-keyboard/
 
 
 
@@ -20,7 +20,7 @@ sudo cp -R * /usr/local/
 echo "Testing Node"
 node -v
 npm -v
-cd /usr/local/quartz-hardware/
+cd /usr/local/sapphire-keyboard/
 yes | sudo rm -r ./node-v10.15.0-linux-armv6l*
 
 #install sound dependancies
@@ -30,7 +30,7 @@ yes | sudo apt install sox
 echo "installing vorbis-tools"
 yes | sudo apt install vorbis-tools
 
-cd /usr/local/quartz-hardware/
+cd /usr/local/sapphire-keyboard/
 
 echo "making files executable"
 #Make the run file executable
@@ -45,7 +45,7 @@ amixer cset numid=3 1
 
 echo "setting up keyboard input"
 ### install set up Keyboard_Input ###
-cd /usr/local/quartz-hardware/Keyboard_Input
+cd /usr/local/sapphire-keyboard/Keyboard_Input
 
 #make our other files executable
 chmod 755 ./find_keyboards.py
@@ -76,7 +76,7 @@ echo "Setting up shutdown scripts"
 #setup on off switch here: https://howchoo.com/g/mwnlytk3zmm/how-to-add-a-power-button-to-your-raspberry-pi
 
 
-cd /usr/local/quartz-hardware/
+cd /usr/local/sapphire-keyboard/
 
 
 sudo chmod +x ./listen-for-shutdown.py
