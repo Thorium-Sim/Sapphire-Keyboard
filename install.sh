@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo mv ../sapphire-keyboard /usr/local/
+sudo cp ../sapphire-keyboard /usr/local/
 cd /usr/local/sapphire-keyboard/
 
 
@@ -98,5 +98,6 @@ sudo update-rc.d -f listen-for-shutdown.sh default
 sudo update-rc.d -f start-sound-clients.sh default
 
 
+sudo rm -r ~/sapphire-keyboard
 
 echo "DONE!  Please reboot to start the sound player"
