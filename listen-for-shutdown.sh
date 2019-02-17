@@ -1,4 +1,6 @@
-#! /bin/sh
+#!/bin/bash
+
+# /etc/init.d/listen-for-shutdown.sh
 
 ### BEGIN INIT INFO
 # Provides:          listen-for-shutdown.py

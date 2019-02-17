@@ -1,4 +1,6 @@
-#! /bin/sh
+#!/bin/bash
+
+# /etc/init.d/start-sound-clients.sh
 
 ### BEGIN INIT INFO
 # Provides:          run.sh
