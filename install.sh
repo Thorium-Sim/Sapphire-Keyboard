@@ -1,6 +1,7 @@
 #!/bin/bash
 
-sudo cp ../sapphire-keyboard /usr/local/
+mkdir /usr/local/sapphire-keyboard/
+sudo cp -r * /usr/local/sapphire-keyboard/
 cd /usr/local/sapphire-keyboard/
 
 
@@ -11,9 +12,9 @@ cd /usr/local/sapphire-keyboard/
 #Install Node
 echo "Installing Node"
 echo "Downloading Node"
-wget -v https://nodejs.org/dist/v10.15.0/node-v10.15.0-linux-armv6l.tar.xz
+sudo wget -v https://nodejs.org/dist/v10.15.0/node-v10.15.0-linux-armv6l.tar.xz
 echo "Unpacking Node"
-tar -xf node-v10.15.0-linux-armv6l.tar.xz
+sudo tar -xf node-v10.15.0-linux-armv6l.tar.xz
 cd node-v10.15.0-linux-armv6l
 echo "Copying Node Files"
 sudo cp -R * /usr/local/
@@ -34,41 +35,41 @@ cd /usr/local/sapphire-keyboard/
 
 echo "making files executable"
 #Make the run file executable
-chmod 755 ./run.sh
+sudo chmod 755 ./run.sh
 
 #Make the run file executable
-chmod 755 ./test-speakers.sh
+sudo chmod 755 ./test-speakers.sh
 
 echo "forcing audio through headphone jack"
 #Force the audio output through the headphone jack
-amixer cset numid=3 1
+sudo amixer cset numid=3 1
 
 echo "setting up keyboard input"
 ### install set up Keyboard_Input ###
 cd /usr/local/sapphire-keyboard/Keyboard_Input
 
 #make our other files executable
-chmod 755 ./find_keyboards.py
-chmod 755 ./start.sh
+sudo chmod 755 ./find_keyboards.py
+sudo chmod 755 ./start.sh
 
 #compile the c programming
-gcc capture_key.c -o "compiled_capture_key.a"
+sudo gcc capture_key.c -o "compiled_capture_key.a"
 
 #install node dependancies
-npm install
+sudo npm install
 
 
 echo "setting up Sound Player"
 ### install set up Sound_Player ###
 cd ../Sound_Player
-mkdir ./Sounds/
+sudo mkdir ./Sounds/
 
 #make our other files executable
-chmod 755 ./clear_sound_cache.sh
-chmod 755 ./start.sh
+sudo chmod 755 ./clear_sound_cache.sh
+sudo chmod 755 ./start.sh
 
 #install node dependancies
-npm install
+sudo npm install
 
 cd ../
 
